@@ -1,0 +1,4 @@
+# Red Team Judge — Dependencies
+# Install with: pip install -r requirements.txt
+
+mlx-lm>=0.19.0          # Apple MLX framework for LLM fine-tuning

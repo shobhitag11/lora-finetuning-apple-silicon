@@ -1,0 +1,30 @@
+# LoRA Fine-tuning Configuration for MLX-LM
+# ─────────────────────────────────────────────
+# Optimized for: MacBook M1 Pro 8GB RAM
+# Model: Qwen2.5-1.5B-Instruct (small enough for 8GB)
+
+# ── LoRA Hyperparameters ──
+# rank: The "compression ratio" of the adapter.
+#   Higher rank = more capacity but more memory.
+#   For 8GB RAM, rank 8 is the sweet spot.
+lora_layers: 16          # Number of transformer layers to apply LoRA to
+lora_parameters:
+  rank: 8                 # LoRA rank (dimensionality of the adapter)
+  alpha: 16               # Scaling factor. Rule of thumb: alpha = 2 * rank
+  dropout: 0.05           # Dropout for regularization
+  scale: 10.0             # Learning rate scaling for LoRA layers
+
+# ── Training Configuration ──
+iters: 200                # Total training iterations (steps, not epochs)
+batch_size: 1             # Batch size — keep at 1 for 8GB RAM
+learning_rate: 1e-5       # Conservative LR for fine-tuning
+grad_checkpoint: true     # Trade compute for memory — essential for 8GB
+
+# ── Evaluation ──
+val_batches: 5            # Number of validation batches per eval
+steps_per_eval: 50        # Evaluate every N steps
+steps_per_report: 10      # Log training loss every N steps
+
+# ── Adapter Output ──
+adapter_path: "adapters"  # Where to save the trained LoRA weights
+save_every: 50            # Checkpoint every N steps
