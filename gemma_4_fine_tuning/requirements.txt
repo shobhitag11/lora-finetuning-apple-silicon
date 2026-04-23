@@ -1,0 +1,4 @@
+# Red Team Judge — Gemma 4 E2B on Apple Silicon
+# Install: pip install -r requirements.txt
+
+mlx-lm>=0.21.0     # Apple MLX framework with LoRA + Gemma 4 support

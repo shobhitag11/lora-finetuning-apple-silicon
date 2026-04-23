@@ -1,0 +1,27 @@
+# LoRA Fine-tuning Config — Gemma 4 E2B on M1 Pro 8GB
+# ──────────────────────────────────────────────────────
+# Gemma 4 E2B has ~2.3B effective params (~5.1B total with PLE).
+# At 4-bit: ~3GB model + ~2GB training overhead ≈ 5GB. Tight on 8GB.
+# Every setting here is tuned for minimal memory.
+
+# ── LoRA ──
+lora_layers: 4             # Only 4 layers (Gemma 4 E2B has fewer layers than large models)
+lora_parameters:
+  rank: 8                   # Rank 8 — good balance of capacity vs memory
+  scale: 2.0                # LoRA scaling (replaces alpha/rank in mlx_lm >= 0.21)
+  dropout: 0.05             # Regularization
+
+# ── Training ──
+iters: 300                  # More iters since Gemma 4 is smarter baseline
+batch_size: 1               # MUST be 1 for 8GB RAM
+learning_rate: 2e-5         # Slightly higher LR — Gemma 4 adapts faster
+grad_checkpoint: true       # Essential for 8GB — trades speed for memory
+
+# ── Evaluation ──
+val_batches: 5
+steps_per_eval: 50
+steps_per_report: 10
+
+# ── Saving ──
+adapter_path: "adapters"
+save_every: 100
