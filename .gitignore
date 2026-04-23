@@ -39,15 +39,12 @@ Icon
 *~
 
 # Model weights (large binary files — download via mlx-lm at runtime)
-adapters/*.safetensors
-adapters/0*_adapters.safetensors
+**/adapters/*.safetensors
+**/adapters/0*_adapters.safetensors
 
 # Keep final adapter and config (these are small and useful to share)
-!adapters/adapters.safetensors
-!adapters/adapter_config.json
-
-# Hugging Face model cache (downloaded automatically)
-~/.cache/huggingface/
+!**/adapters/adapters.safetensors
+!**/adapters/adapter_config.json
 
 # Generated data (reproducible via prepare_data.py)
 # Uncomment the lines below if you prefer not to commit generated data:
